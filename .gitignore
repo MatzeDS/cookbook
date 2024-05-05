@@ -1,0 +1,13 @@
+# IntelliJ
+.idea
+
+# vs code
+.vscode
+settings.json
+
+# Cache
+__pycache__
+
+# Environments
+.env
+.venv
