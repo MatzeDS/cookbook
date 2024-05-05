@@ -1,0 +1,9 @@
+fastapi~=0.111.0
+pydantic~=2.7.4
+sqlalchemy~=2.0.31
+mysqlclient~=2.2.4
+mypy~=1.10.0
+black~=24.4.2
+isort~=5.13.2
+pre-commit==3.6.0
+sqlalchemy[mypy]
