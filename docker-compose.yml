@@ -1,0 +1,34 @@
+services:
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+      MARIADB_USER: "${DB_USER}"
+      MARIADB_PASSWORD: "${DB_PASSWORD}"
+      MARIADB_DATABASE: "${DB_DATABASE}"
+    volumes:
+      - ./data:/var/lib/mysql
+
+  backend:
+    image: matzeds/cookbook-backend
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: 'mariadb+pymysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_DATABASE}?charset=utf8mb4'
+
+  frontend:
+    image: matzeds/cookbook-frontend
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:8888"
